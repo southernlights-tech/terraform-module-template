@@ -30,4 +30,18 @@ No resources.
 No inputs.
 
 ## Outputs
-No outputs.
+
+All modules in the Southern Lights Tech ecosystem follow the **Aggregated Map Pattern**. Instead of multiple individual outputs, the module exports a single `outputs` object.
+
+| Name | Description |
+|------|-------------|
+| `outputs` | Aggregated map of all module outputs. Access via `module.<name>.outputs.<attr>` |
+
+### Usage in Loops (`for_each`)
+When using this module with `for_each`, you may need to explicitly cast or access the specific key to avoid type inference issues in complex dependencies:
+
+```hcl
+output "example" {
+  value = { for k, v in module.my_module : k => v.outputs.some_id }
+}
+```
